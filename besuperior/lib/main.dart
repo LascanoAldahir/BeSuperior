@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'BeSuperior',
       debugShowCheckedModeBanner: false, //oculta la etiqueta Debug en la esquina
       home: HomePage(),
+
     );
   }
 }

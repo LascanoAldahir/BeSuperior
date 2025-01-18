@@ -4,78 +4,132 @@ void main() {
   runApp(MyApp());
 }
 
+//Widget principal de la app
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key); //Constructor con un parametro
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug
       title: 'BeSuperior',
-      debugShowCheckedModeBanner: false, //oculta la etiqueta Debug en la esquina
-      home: HomePage(),
-
+      home: HomePage(), // Página inicial
     );
   }
 }
 
+//Widget que respresenta la pagina principal con navegacion
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();//Crea el estado para la pagina
+  _HomePageState createState() => _HomePageState();
 }
-
+//Estado asociado a HomePage
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0; //Controlla que elemento del Navbar esta seleccionado
+  late int _selectedIndex = 0; //Indice que controla que pantalla se muestra
 
-  //Lista de títulos para las diferentes pantallas
-  static const List<String> _pageTitles = [
-    'Calendario',
-    'Rutinas',
-    'Perfil',
+  // Lista de pantallas
+  final List<Widget> _pages = const [
+    const CalendarioScreen(), // Pantalla de Calendario
+    const RutinasScreen(), // Pantalla de Rutinas
+    const PerfilScreen(), // Pantalla de Perfil
   ];
 
-  //Aqui se podrian agregar widgets de las pantallas correspondientes.
-  static const List<Widget> _pages = [
-    Center(child: Text('Pantalla de Calendario')),
-    Center(child: Text('Pantalla de Rutinas')),
-    Center(child: Text('Pantalla de Perfil')),
-  ];
+  //Metodo que se llama cuando se presiona un ítem del BottomNavigationBar.
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; //Cambia el indice seleccionado al presionar un boton del navbar
+      _selectedIndex = index; // Actualiza el índice seleccionado
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = 0; // Inicializa el índice seleccionado
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_pageTitles[_selectedIndex]), //Cambia el titulo segun el indice seleccionado
-        backgroundColor: Colors.purple, //Color de fondo del AppBar
+        title: Text(_getTitle()), // Título dinámico basado en la pantalla actual
+        backgroundColor: Colors.purple, //Color de fondo del AppNar
       ),
-      body: _pages[_selectedIndex], //Muestra la pantalla correspondiente al indice seleccionado
+      body: IndexedStack(
+        index: _selectedIndex, // Muestra solo la pantalla seleccionada
+        children: _pages, // Lista de pantallas
+      ),
       bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today),
-                label: 'Calendario',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.fitness_center),
-              label: 'Rutinas',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Perfil',
-            ),
-          ],
-        currentIndex: _selectedIndex, //Indica cual es elemento seleccionado actualmente
-        selectedItemColor: Colors.purple,//Color del elemento seleccionado.
-        unselectedItemColor: Colors.grey, //Color de elementos no seleccionados
-        onTap: _onItemTapped, //Llama a la funcion cuando un elemento es presionado
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendario',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Rutinas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+        ],
+        currentIndex: _selectedIndex, // Índice del elemento seleccionado
+        selectedItemColor: Colors.purple, // Color del elemento seleccionado
+        unselectedItemColor: Colors.grey, // Color de los elementos no seleccionados
+        onTap: _onItemTapped, // Llama a la función al presionar un ícono
       ),
+    );
+  }
+
+  // Obtiene el título basado en la pantalla actual
+  String _getTitle() {
+    switch (_selectedIndex) {
+      case 0:
+        return 'Calendario';
+      case 1:
+        return 'Rutinas';
+      case 2:
+        return 'Perfil';
+      default:
+        return 'BeSuperior';
+    }
+  }
+}
+
+// Pantalla de Calendario
+class CalendarioScreen extends StatelessWidget {
+  const CalendarioScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Pantalla de Calendario'), // Contenido vacío
     );
   }
 }
 
+// Pantalla de Rutinas
+class RutinasScreen extends StatelessWidget {
+  const RutinasScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Pantalla de Rutinas'), // Contenido vacío
+    );
+  }
+}
+
+// Pantalla de Perfil
+class PerfilScreen extends StatelessWidget {
+  const PerfilScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Pantalla de Perfil'), // Contenido vacío
+    );
+  }
+}

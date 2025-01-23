@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import './screens/perfil_screen.dart'; // Importación de PerfilScreen
-import './screens/calendario_screen.dart'; // Importación de CalendarioScreen
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   // Lista de pantallas
   final List<Widget> _pages = [
     const CalendarioScreen(), // Pantalla de Calendario
-    const RutinasScreen(), // Pantalla de Rutinas
+    const ExerciseScreen(), // Pantalla de Rutinas
     const PerfilScreen(), // Pantalla de Perfil
   ];
 
@@ -75,6 +74,18 @@ class _HomePageState extends State<HomePage> {
             Colors.grey, // Color de los elementos no seleccionados
         onTap: _onItemTapped, // Llama a la función al presionar un ícono
       ),
+    );
+  }
+}
+
+// Pantalla de Calendario
+class CalendarioScreen extends StatelessWidget {
+  const CalendarioScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Pantalla de Calendario'), // Contenido vacío
     );
   }
 }

@@ -12,8 +12,8 @@ class PerfilScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color.fromARGB(255, 82, 0, 176),
-              Color.fromARGB(247, 32, 1, 37)
+              Color.fromARGB(220, 100, 0, 150),
+              Color.fromARGB(220, 0, 0, 90),
             ],
           ),
         ),
@@ -32,7 +32,7 @@ class PerfilScreen extends StatelessWidget {
               const SizedBox(height: 20),
               const CircleAvatar(
                 radius: 90,
-                backgroundImage: AssetImage('images/image.png'),
+                backgroundImage: AssetImage('./lib/images/image.png'),
               ),
               const SizedBox(height: 20),
               Padding(

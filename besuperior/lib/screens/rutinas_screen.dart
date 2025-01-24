@@ -15,7 +15,7 @@ class ExerciseScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [
-              const SizedBox(height: 20), //Espacio vacio de 20 piceles de alto
+              const SizedBox(height: 40), //Espacio vacio de 20 piceles de alto
               Expanded(
                 //expande el widget GridView para ocupar todo el espacio disponible
                 child: GridView.builder(

@@ -11,7 +11,7 @@ class ExerciseScreen extends StatelessWidget {
       // SafeArea asegura que el contenido no se superponga con áreas del sistema
       body: SafeArea(
         child: Padding(
-          // Padding horizontal de 20 píxeles en ambos lados
+          // Padding horizontal de 20 píxeles en ambos lados..
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [

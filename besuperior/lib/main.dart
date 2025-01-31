@@ -2,8 +2,15 @@ import "package:flutter/material.dart";
 import './screens/perfil_screen.dart'; // Importación de PerfilScreen
 import './screens/rutinas_screen.dart';
 import './screens/calendario_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Inicializa los Widgets de Flutter
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

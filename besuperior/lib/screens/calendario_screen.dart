@@ -83,12 +83,20 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Column(
-          children: [
-            _buildMonthSelector(),
-            _buildCalendar(),
-            _buildRecaidasInput()
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildMonthSelector(),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: 800, // Limita el ancho máximo del calendario
+                ),
+                child: _buildCalendar(),
+              ),
+              _buildRecaidasInput(),
+              _buildRachasButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -122,18 +130,24 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
     final firstDayOfWeek =
         DateTime(_currentDate.year, _currentDate.month, 1).weekday % 7;
 
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            _buildWeekDaysHeader(),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          _buildWeekDaysHeader(),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final cellSize = constraints.maxWidth / 7;
+              return GridView.builder(
+                shrinkWrap:
+                    true, // Evita que el GridView se expanda infinitamente
+                physics:
+                    const NeverScrollableScrollPhysics(), // Desactiva el scroll
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 7,
                   mainAxisSpacing: 8.0,
                   crossAxisSpacing: 8.0,
+                  childAspectRatio: 1, // Celdas cuadradas
                 ),
                 itemCount: 42,
                 itemBuilder: (context, index) {
@@ -142,12 +156,12 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
                     return const SizedBox();
                   }
                   final day = index - firstDayOfWeek + 1;
-                  return _buildDayCell(day);
+                  return _buildDayCell(day, cellSize);
                 },
-              ),
-            ),
-          ],
-        ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -172,12 +186,14 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
     );
   }
 
-  Widget _buildDayCell(int day) {
+  Widget _buildDayCell(int day, double cellSize) {
     final isToday = DateTime.now().year == _currentDate.year &&
         DateTime.now().month == _currentDate.month &&
         DateTime.now().day == day;
 
     return Container(
+      width: cellSize,
+      height: cellSize,
       decoration: BoxDecoration(
         border: Border.all(
             color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.0)),

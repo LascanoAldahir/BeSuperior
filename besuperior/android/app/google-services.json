@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "172505029717",
+    "project_id": "besuperior-1f589",
+    "storage_bucket": "besuperior-1f589.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172505029717:android:5fdd1ba6bff165f1a508dc",
+        "android_client_info": {
+          "package_name": "com.example.besuperior"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDuF9w7OreoKJ2VNxvKlzNPKEROwcxPoM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
